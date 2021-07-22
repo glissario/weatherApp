@@ -1,0 +1,83 @@
+/* general */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+/* Coolors: https://coolors.co/2ec0f9-67aaf9-9bbdf9-c4e0f9-b95f89*/
+
+html {
+  font-size: 15px;
+  background-color: #c4e0f9;
+}
+
+body {
+  background-color: #9bbdf9;
+  width: 25rem;
+  margin: auto;
+}
+
+main {
+}
+/* specific */
+
+.header {
+  background-color: #67aaf9;
+  text-align: center;
+  border: 2px solid white;
+}
+
+.location {
+  min-height: 8rem;
+  margin-top: 2rem;
+}
+
+.search-button {
+  margin-top: 0.5rem;
+}
+
+.selection {
+  list-style: none;
+}
+
+.radio-local {
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid black;
+  border-radius: 5%;
+  outline: none;
+  background-color: #118ab2;
+}
+
+.radio-local::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.radio-local:checked:before {
+  background: #118ab2;
+}
+.radio-local:focus {
+  border: 2px #b95f89 solid;
+  transition: 0.5s;
+}
+
+.choose-button {
+  margin-top: 0.5rem;
+  align-self: flex-end;
+}
+.forecast {
+  margin: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border: 2px solid hotpink;
+}
+.head {
+  font-weight: bold;
+  background-color: #67aaf9;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Christian Glissmann" />
+    <meta name="title" content="WeatherAPP" />
+    <link rel="stylesheet" href="style.css" />
+
+    <title>WeatherApp</title>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Weather forecast</h1>
+    </header>
+    <main>
+      <section class="location">
+        <div>
+          <label>Insert location</label>
+          <input type="text" class="location__input" id="newLocationInput" />
+          <button class="search-button" id="search-button">search</button>
+        </div>
+        <div class="location-selection" id="location-selection">
+          <ul class="location-table"></ul>
+        </div>
+        <button class="choose-button" id="choose-button">forecast</button>
+      </section>
+      <section class="forecast" id="forecast-area">
+        <div class="symbol head"></div>
+        <div class="date head">Datum</div>
+        <div class="minTemp head">minTemp</div>
+        <div class="maxTemp head">maxTemp</div>
+      </section>
+    </main>
+  </body>
+  <script src="script.js"></script>
+</html>
