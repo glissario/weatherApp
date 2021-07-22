@@ -14,8 +14,20 @@ html {
 
 body {
   background-color: #9bbdf9;
-  width: 25rem;
+  width: 35rem;
   margin: auto;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+h3 {
+  font-size: 1.5rem;
+  align-self: center;
 }
 
 main {
@@ -76,6 +88,9 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   border: 2px solid hotpink;
+}
+.temp {
+  font-size: 1.5rem;
 }
 .head {
   font-weight: bold;

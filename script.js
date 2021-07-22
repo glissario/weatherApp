@@ -3,6 +3,8 @@ let button = null;
 searchButton = document.getElementById("search-button");
 searchButton.addEventListener("click", search);
 let api_Locations = [];
+locList = document.querySelector("#location-table");
+let city = null;
 
 class Locations {
   constructor(title, type, woeid, latt_long) {
@@ -32,23 +34,34 @@ function findLocation(element) {
     .then((response) => response.text())
     .then(function (result) {
       //locationStringToArray(result);
-      api_Locations = JSON.parse(result);
-      locationChoice();
+      if (result.length > 2) {
+        api_Locations = JSON.parse(result);
+        locationChoice();
+      } else {
+        const headerCity = document.querySelector("#city");
+        const errorNode = document.createTextNode("no result");
+
+        headerCity.appendChild(errorNode);
+      }
     })
     .catch((error) => console.log("error", error));
 }
 
 function locationChoice() {
-  const choiceArea = document.querySelector("#location-selection");
+  const choiceArea = document.querySelector("#location-table");
+
   api_Locations.forEach((element) => {
     let locationLine = document.createElement("li");
     locationLine.classList = "selection";
+    locationLine.weatherObj = element;
 
     let radio = document.createElement("input");
     radio.setAttribute("type", "radio");
+    radio.setAttribute("name", "locSelection");
     radio.classList = "radio-local";
 
     const label = document.createElement("label");
+    label.id = "selectLocation";
     const locationNode = element.title;
     const node = document.createTextNode(locationNode);
 
@@ -70,12 +83,9 @@ function getForecastLine(weatherSymbol, fcDate, min, max) {
 
   let symbolColumn = document.createElement("div");
   let fcSymbol = document.createElement("IMG");
-  fcSymbol.width = 40;
-  fcSymbol.height = 40;
+  fcSymbol.width = 60;
+  fcSymbol.height = 60;
   fcSymbol.src = weatherSymbol;
-  //let fcSymbol = document.images[weatherSymbol];
-  //console.log(fcSymbol);
-  //fcSymbol.appendChild(weatherSymbol);
   symbolColumn.appendChild(fcSymbol);
 
   let date = document.createElement("div");
@@ -83,10 +93,12 @@ function getForecastLine(weatherSymbol, fcDate, min, max) {
   date.appendChild(dateNode);
 
   let minTemp = document.createElement("div");
+  minTemp.classList = "temp";
   const minTempNode = document.createTextNode(min);
   minTemp.appendChild(minTempNode);
 
   let maxTemp = document.createElement("div");
+  maxTemp.classList = "temp";
   let maxTempNode = document.createTextNode(max);
   maxTemp.appendChild(maxTempNode);
 
@@ -99,22 +111,39 @@ function getForecastLine(weatherSymbol, fcDate, min, max) {
   //console.log("data" + weaterData);
 }
 
-//getForecastData();
+locList.addEventListener("change", function (e) {
+  const newChoice = e.target.checked;
+  console.log(newChoice);
+  city = e.target.parentElement.weatherObj;
+  console.log(city);
+});
 
-function getForecastData() {
-  var raw = "";
+function getForecastData(e) {
+  let index = null;
+
+  const headerCity = document.querySelector("#city");
+  const cityNode = document.createTextNode(city.title);
+  const table = document.querySelector("#forecast-area");
+
+  headerCity.appendChild(cityNode);
+  headerCity.appendChild(table);
+
+  console.log(city.woeid);
 
   var requestOptions = {
     method: "GET",
     redirect: "follow",
   };
 
-  fetch("https://www.metaweather.com/api/location/44418/", requestOptions)
+  fetch(
+    "https://www.metaweather.com/api/location/" + city.woeid,
+    requestOptions
+  )
     .then((response) => response.text())
     .then(function (result) {
       const forecast = JSON.parse(result).consolidated_weather;
-      console.log(forecast[0].min_temp);
-      console.log(forecast[0].max_temp);
+      console.log(Math.round(forecast[0].min_temp));
+      console.log(Math.round(forecast[0].max_temp));
       console.log(forecast[0].applicable_date);
       const fcSymbol =
         "https://www.metaweather.com/static/img/weather/" +
@@ -124,11 +153,9 @@ function getForecastData() {
       getForecastLine(
         fcSymbol,
         forecast[0].applicable_date,
-        forecast[0].min_temp,
-        forecast[0].max_temp
+        Math.round(forecast[0].min_temp),
+        Math.round(forecast[0].max_temp)
       );
     })
     .catch((error) => console.log("error", error));
 }
-
-function getSymbol() {}
