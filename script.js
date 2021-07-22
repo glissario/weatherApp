@@ -28,7 +28,7 @@ function findLocation(element) {
   };
 
   fetch(
-    "http://www.metaweather.com/api/location/search/?query=" + element,
+    "https://www.metaweather.com/api/location/search/?query=" + element,
     requestOptions
   )
     .then((response) => response.text())
