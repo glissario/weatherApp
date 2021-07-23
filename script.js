@@ -1,7 +1,7 @@
-let button = null;
+const searchArea = document.querySelector("#search");
+const choiceArea = document.querySelector("#choice");
+const forecastArea = document.querySelector("#forecast");
 
-searchButton = document.getElementById("search-button");
-searchButton.addEventListener("click", search);
 let api_Locations = [];
 locList = document.querySelector("#location-table");
 let city = null;
@@ -15,8 +15,21 @@ class Locations {
   }
 }
 
+homeButton = document.getElementById("home");
+homeButton.addEventListener("click", function (e) {
+  location.reload();
+});
+
+searchButton = document.getElementById("search-btn");
+searchButton.addEventListener("click", search);
+
 function search() {
+  // visibility:
+  choiceArea.style.display = "grid";
+  searchArea.style.display = "none";
+
   const searchL = document.querySelector("#newLocationInput");
+
   findLocation(searchL.value);
 }
 
@@ -34,14 +47,18 @@ function findLocation(element) {
     .then((response) => response.text())
     .then(function (result) {
       //locationStringToArray(result);
-      if (result.length > 2) {
+
+      if (result.length > 3) {
         api_Locations = JSON.parse(result);
         locationChoice();
       } else {
-        const headerCity = document.querySelector("#city");
+        //const headerCity = document.querySelector("#city");
         const errorNode = document.createTextNode("no result");
-
-        headerCity.appendChild(errorNode);
+        errorMessage = document.createElement("label");
+        errorMessage.appendChild(errorNode);
+        searchArea.appendChild(errorMessage);
+        searchArea.style.display = "block";
+        choiceArea.style.display = "none";
       }
     })
     .catch((error) => console.log("error", error));
@@ -51,32 +68,36 @@ function locationChoice() {
   const choiceArea = document.querySelector("#location-table");
 
   api_Locations.forEach((element) => {
-    let locationLine = document.createElement("li");
-    locationLine.classList = "selection";
-    locationLine.weatherObj = element;
+    let locationLabel = document.createElement("label");
+    locationLabel.classList = "selection";
+    locationLabel.weatherObj = element;
 
-    let radio = document.createElement("input");
-    radio.setAttribute("type", "radio");
-    radio.setAttribute("name", "locSelection");
-    radio.classList = "radio-local";
+    let selPick = document.createElement("div");
+    selPick.classList = "pick";
 
-    const label = document.createElement("label");
-    label.id = "selectLocation";
+    let selLink = document.createElement("a");
+    let selSpan = document.createElement("span");
+
     const locationNode = element.title;
     const node = document.createTextNode(locationNode);
 
-    label.appendChild(node);
-    locationLine.appendChild(radio);
-    locationLine.appendChild(label);
-    choiceArea.appendChild(locationLine);
+    selPick.appendChild(selLink);
+    selLink.appendChild(selSpan);
+    selSpan.appendChild(node);
+
+    locationLabel.appendChild(selLink);
+    choiceArea.appendChild(locationLabel);
   });
 }
 
 /*forecast*/
 
-const forecastButton = document.querySelector("#choose-button");
-forecastButton.addEventListener("click", getForecastData);
-console.log(forecastButton);
+const locTable = document.querySelector("#location-table");
+locTable.addEventListener("click", function (e) {
+  //console.log(e.target.parentElement.weatherObj.title);
+
+  getForecastData(e.target.parentElement.weatherObj);
+});
 
 function getForecastLine(weatherSymbol, fcDate, min, max) {
   const forecastArea = document.querySelector("#forecast-area");
@@ -110,16 +131,19 @@ function getForecastLine(weatherSymbol, fcDate, min, max) {
   //let weaterData = getForecastData();
   //console.log("data" + weaterData);
 }
-
+/*
 locList.addEventListener("change", function (e) {
   const newChoice = e.target.checked;
   console.log(newChoice);
   city = e.target.parentElement.weatherObj;
   console.log(city);
 });
+*/
 
-function getForecastData(e) {
+function getForecastData(city) {
   let index = null;
+  forecastArea.style.display = "grid";
+  choiceArea.style.display = "none";
 
   const headerCity = document.querySelector("#city");
   const cityNode = document.createTextNode(city.title);
@@ -127,8 +151,6 @@ function getForecastData(e) {
 
   headerCity.appendChild(cityNode);
   headerCity.appendChild(table);
-
-  console.log(city.woeid);
 
   var requestOptions = {
     method: "GET",
@@ -142,14 +164,11 @@ function getForecastData(e) {
     .then((response) => response.text())
     .then(function (result) {
       const forecast = JSON.parse(result).consolidated_weather;
-      console.log(Math.round(forecast[0].min_temp));
-      console.log(Math.round(forecast[0].max_temp));
-      console.log(forecast[0].applicable_date);
       const fcSymbol =
         "https://www.metaweather.com/static/img/weather/" +
         forecast[0].weather_state_abbr +
         ".svg";
-      console.log(fcSymbol);
+      //console.log(fcSymbol);
       getForecastLine(
         fcSymbol,
         forecast[0].applicable_date,

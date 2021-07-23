@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Christian Glissmann" />
     <meta name="title" content="WeatherAPP" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
 
     <title>WeatherApp</title>
@@ -12,22 +15,29 @@
   <body>
     <header class="header">
       <h1>Weather forecast</h1>
+      <div class="btn" id="home">NEW</div>
     </header>
     <main>
-      <section class="location">
+      <section class="search" id="search">
         <div>
-          <label>Insert location</label>
-          <input type="text" class="location__input" id="newLocationInput" />
-          <button class="search-button" id="search-button">search</button>
+        <div class=>
+          <h2>Insert Location</h2>
+          <div class="flex-input">
+          <input type="text" class="location-input" id="newLocationInput" />
+          <div class="btn" id="search-btn">search</div>
         </div>
-        <div class="location-selection" id="location-selection">
-          <ul class="location-table" id="location-table"></ul>
-        </div>
-        <button class="choose-button" id="choose-button">forecast</button>
       </section>
-      <section>
+      <section class="choice" id="choice"> 
+        <h2>Take Your Choice</h2>
+        <ul class="location-table" id="location-table">
+
+          </div></li>
+        </ul>
+
+      </section>
+      <section class="forecast" id="forecast">
         <h2 id="city"></h2>
-        <div class="forecast" id="forecast-area">
+        <div class="forecast-area" id="forecast-area">
           <div><h3 class="symbol"></div>
           <div><h3 class="date">Datum</div>
           <div><h3 class="minTemp">minTemp</div>
