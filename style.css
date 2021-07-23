@@ -45,7 +45,7 @@ main {
   align-items: center;
   background-color: #67aaf9;
   text-align: center;
-  border: 2px solid white;
+  border: 2px solid transparent;
   margin-top: 5rem;
   padding-left: 2rem;
   color: white;
@@ -61,6 +61,7 @@ main {
 .search {
   height: 10rem;
   color: black;
+  _border: 2px solid white;
 }
 
 .flex-input {
@@ -74,6 +75,9 @@ main {
 }
 
 .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #fff;
   transition: all 0.5s;
   position: relative;
@@ -118,11 +122,18 @@ main {
   transform: scale(1, 1);
 }
 
+.error-message {
+  font-size: 2.5rem;
+  color: #b95f89;
+  font-weight: bold;
+}
+
 #choice {
   display: none;
 }
 
 .choice {
+  _border: 2px solid white;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr auto;
   justify-items: center;
@@ -197,6 +208,9 @@ a:hover:after {
 
 #forecast {
   display: none;
+}
+
+.forecast {
 }
 
 .forecast-area {

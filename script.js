@@ -52,13 +52,13 @@ function findLocation(element) {
         api_Locations = JSON.parse(result);
         locationChoice();
       } else {
-        //const headerCity = document.querySelector("#city");
         const errorNode = document.createTextNode("no result");
         errorMessage = document.createElement("label");
         errorMessage.appendChild(errorNode);
-        searchArea.appendChild(errorMessage);
-        searchArea.style.display = "block";
-        choiceArea.style.display = "none";
+        errorMessage.classList = "error-message";
+        choiceArea.appendChild(errorMessage);
+        //searchArea.style.display = "block";
+        //choiceArea.style.display = "none";
       }
     })
     .catch((error) => console.log("error", error));
@@ -76,9 +76,13 @@ function locationChoice() {
     selPick.classList = "pick";
 
     let selLink = document.createElement("a");
+    selLink.id = "test";
     let selSpan = document.createElement("span");
+    selSpan.id = "locNode";
+    selSpan.setAttribute("for", "test");
 
     const locationNode = element.title;
+
     const node = document.createTextNode(locationNode);
 
     selPick.appendChild(selLink);
@@ -94,9 +98,13 @@ function locationChoice() {
 
 const locTable = document.querySelector("#location-table");
 locTable.addEventListener("click", function (e) {
-  //console.log(e.target.parentElement.weatherObj.title);
+  let parentElement = e.target.parentElement.weatherObj;
 
-  getForecastData(e.target.parentElement.weatherObj);
+  if ("locNode" === e.target.id) {
+    parentElement = e.target.parentElement;
+    parentElement = parentElement.parentElement.weatherObj;
+  }
+  getForecastData(parentElement);
 });
 
 function getForecastLine(weatherSymbol, fcDate, min, max) {
