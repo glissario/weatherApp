@@ -1,3 +1,5 @@
+box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+
 /* general */
 *,
 *:before,
@@ -17,6 +19,9 @@ html {
 body {
   _background-color: #9bbdf9;
   background-image: url("https://cdn.pixabay.com/photo/2014/08/09/15/45/sky-414199_960_720.jpg");
+  background-position: -250px -20px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
   max-width: 40rem;
   height: auto;
   margin: auto;
@@ -29,6 +34,7 @@ h1 {
 h2 {
   font-size: 2.5rem;
   text-align: center;
+  color: white;
 }
 h3 {
   font-size: 1.5rem;

@@ -23,12 +23,20 @@ homeButton.addEventListener("click", function (e) {
 searchButton = document.getElementById("search-btn");
 searchButton.addEventListener("click", search);
 
+addInput = document.getElementById("new-location-Input");
+console.log(addInput);
+addInput.addEventListener("keydown", function (e) {
+  if (e.keyCode === 13) {
+    search();
+  }
+});
+
 function search() {
   // visibility:
   choiceArea.style.display = "grid";
   searchArea.style.display = "none";
 
-  const searchL = document.querySelector("#newLocationInput");
+  const searchL = document.querySelector("#new-location-Input");
 
   findLocation(searchL.value);
 }
