@@ -115,47 +115,6 @@ locTable.addEventListener("click", function (e) {
   getForecastData(parentElement);
 });
 
-function getForecastLine(weatherSymbol, fcDate, min, max) {
-  const forecastArea = document.querySelector("#forecast-area");
-
-  let symbolColumn = document.createElement("div");
-  let fcSymbol = document.createElement("IMG");
-  fcSymbol.width = 60;
-  fcSymbol.height = 60;
-  fcSymbol.src = weatherSymbol;
-  symbolColumn.appendChild(fcSymbol);
-
-  let date = document.createElement("div");
-  const dateNode = document.createTextNode(fcDate);
-  date.appendChild(dateNode);
-
-  let minTemp = document.createElement("div");
-  minTemp.classList = "temp";
-  const minTempNode = document.createTextNode(min);
-  minTemp.appendChild(minTempNode);
-
-  let maxTemp = document.createElement("div");
-  maxTemp.classList = "temp";
-  let maxTempNode = document.createTextNode(max);
-  maxTemp.appendChild(maxTempNode);
-
-  forecastArea.appendChild(symbolColumn);
-  forecastArea.appendChild(date);
-  forecastArea.appendChild(minTemp);
-  forecastArea.appendChild(maxTemp);
-
-  //let weaterData = getForecastData();
-  //console.log("data" + weaterData);
-}
-/*
-locList.addEventListener("change", function (e) {
-  const newChoice = e.target.checked;
-  console.log(newChoice);
-  city = e.target.parentElement.weatherObj;
-  console.log(city);
-});
-*/
-
 function getForecastData(city) {
   let index = null;
   forecastArea.style.display = "grid";
@@ -193,4 +152,34 @@ function getForecastData(city) {
       );
     })
     .catch((error) => console.log("error", error));
+}
+
+function getForecastLine(weatherSymbol, fcDate, min, max) {
+  const forecastArea = document.querySelector("#forecast-area");
+
+  let symbolColumn = document.createElement("div");
+  let fcSymbol = document.createElement("IMG");
+  fcSymbol.width = 60;
+  fcSymbol.height = 60;
+  fcSymbol.src = weatherSymbol;
+  symbolColumn.appendChild(fcSymbol);
+
+  let date = document.createElement("div");
+  const dateNode = document.createTextNode(fcDate);
+  date.appendChild(dateNode);
+
+  let minTemp = document.createElement("div");
+  minTemp.classList = "temp";
+  const minTempNode = document.createTextNode(min);
+  minTemp.appendChild(minTempNode);
+
+  let maxTemp = document.createElement("div");
+  maxTemp.classList = "temp";
+  let maxTempNode = document.createTextNode(max);
+  maxTemp.appendChild(maxTempNode);
+
+  forecastArea.appendChild(symbolColumn);
+  forecastArea.appendChild(date);
+  forecastArea.appendChild(minTemp);
+  forecastArea.appendChild(maxTemp);
 }
